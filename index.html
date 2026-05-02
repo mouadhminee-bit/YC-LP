@@ -448,13 +448,14 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
           <div class="fg"><input type="email" name="email" placeholder="Adresse email" required/></div>
           <div class="fg"><input type="tel" name="telephone" placeholder="Téléphone" required/></div>
           <div class="fg">
-            <select name="type_besoin" required>
-              <option value="" disabled selected>Type de besoin</option>
-              <option>Financement Structuré (Bancaire)</option>
-              <option>Financements Publics & Dispositifs</option>
-              <option>Capital & Partenariats Financiers</option>
-              <option>Autre</option>
-            </select>
+           <label for="type_besoin" style="display:none;">Type de besoin</label>
+             <select name="type_besoin" id="type_besoin" required>
+               <option value="" disabled selected>Type de besoin</option>
+               <option>Financement Structuré (Bancaire)</option>
+               <option>Financements Publics & Dispositifs</option>
+               <option>Capital & Partenariats Financiers</option>
+               <option>Autre</option>
+             </select>
           </div>
           <div class="fg full"><textarea name="message" placeholder="Décrivez brièvement votre projet de financement…" required></textarea></div>
         </div>
