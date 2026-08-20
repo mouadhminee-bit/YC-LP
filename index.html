@@ -6,45 +6,92 @@
 <title>YACOUT CONSULTING</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="icon" type="image/x-icon" href="/favicon2.png">
+<script>try{if(localStorage.getItem('yacout-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch{}
+try{if(localStorage.getItem('yacout-lang')==='en')document.documentElement.setAttribute('lang','en')}catch{}</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --gold:#C9A84C;--gold-light:#E2C97E;
-  --dark:#0A0A0A;--dark2:#111111;--dark3:#1A1A1A;--dark4:#222222;
-  --gray:#888888;--gray-light:#AAAAAA;
-  --white:#F5F5F0;
+  --gold:#728FCE;--gold-light:#9AB0DE;
+  --dark:#151B54;--dark2:#F4F7FC;--dark3:#FFFFFF;--dark4:#E9EFFB;
+  --gray:#6E739A;--gray-light:#444976;
+  --white:#FFFFFF;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Segoe UI',Helvetica,Arial,sans-serif;
 }
 html{scroll-behavior:smooth}
-body{background:var(--dark);color:var(--white);font-family:var(--sans);line-height:1.7;overflow-x:hidden}
+body{background:var(--white);color:var(--dark);font-family:var(--sans);line-height:1.7;overflow-x:hidden;transition:background .35s,color .35s}
+:is(body.theme-dark,html[data-theme="dark"] body){
+  --dark2:#0D1238;--dark3:#141B4A;--dark4:#1C2560;
+  --gray:#9298C2;--gray-light:#D3D7EC;
+  --white:#090D2B;
+  --ink-light:#F2F4FA;
+  background:var(--white);color:var(--ink-light);
+}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,0.97);border-bottom:1px solid rgba(201,168,76,0.15);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);box-shadow:0 1px 16px rgba(21,27,84,0.06);border-bottom:1px solid rgba(114,143,206,0.25);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;transition:background .35s,box-shadow .35s,border-color .35s}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo-name{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--white)}
+.nav-logo-name{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--dark)}
 .nav-logo-name em{color:var(--gold);font-style:normal}
 .nav-logo-sub{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{color:var(--gray-light);text-decoration:none;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;transition:color .3s}
 .nav-links a:hover{color:var(--gold)}
+.nav-actions{display:flex;align-items:center;gap:12px}
 .nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:8px 18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:all .3s}
 .nav-cta:hover{background:var(--gold);color:var(--dark)}
+.theme-toggle{width:38px;height:22px;min-width:38px;display:inline-flex;align-items:center;justify-content:flex-start;background:rgba(114,143,206,0.08);border:1px solid rgba(114,143,206,0.34);border-radius:999px;color:var(--dark);padding:3px;font-family:var(--sans);cursor:pointer;transition:background .3s,border-color .3s,box-shadow .3s}
+.theme-toggle:hover{border-color:rgba(114,143,206,0.75);background:rgba(114,143,206,0.14);box-shadow:0 0 0 3px rgba(114,143,206,0.08)}
+.theme-toggle [data-theme-label]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.theme-dot{width:14px;height:14px;border-radius:50%;background:var(--dark);box-shadow:0 0 0 1px rgba(114,143,206,0.25),inset -4px -2px 0 rgba(255,255,255,0.9);flex-shrink:0;transition:transform .3s,background .3s,box-shadow .3s}
+.nav-logo svg text,.h-mark text,.foot-logo svg text{transition:fill .35s}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.hamburger span{display:block;width:24px;height:1.5px;background:var(--white);transition:all .3s}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--dark);transition:all .3s}
+
+/* LANG SWITCH */
+.lang-switch{display:flex;align-items:center;gap:2px;border:1px solid rgba(114,143,206,0.34);border-radius:999px;padding:3px;background:rgba(114,143,206,0.08);transition:background .3s,border-color .3s}
+.lang-btn{border:none;background:transparent;color:var(--gray-light);font-size:10px;letter-spacing:1px;font-family:var(--sans);font-weight:500;padding:5px 10px;border-radius:999px;cursor:pointer;transition:background .3s,color .3s;text-transform:uppercase;line-height:1}
+.lang-btn.active{background:var(--gold);color:var(--dark);font-weight:700}
+.lang-btn:not(.active):hover{color:var(--gold)}
+.lang-switch.mob{margin-top:16px;align-self:flex-start}
 
 /* MOBILE MENU */
-.mob-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(10,10,10,0.98);border-bottom:1px solid rgba(201,168,76,0.15);padding:16px 5% 24px;z-index:199;flex-direction:column}
+.mob-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(255,255,255,0.98);border-bottom:1px solid rgba(114,143,206,0.25);padding:16px 5% 24px;z-index:199;flex-direction:column}
 .mob-menu.open{display:flex}
-.mob-menu a{color:var(--gray-light);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mob-menu a{color:var(--gray-light);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 0;border-bottom:1px solid rgba(21,27,84,0.1)}
 .mob-menu a:hover{color:var(--gold)}
 .mob-cta{margin-top:16px;background:var(--gold);color:var(--dark);padding:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);text-align:center}
+.mob-theme{margin-top:16px}
+
+:is(body.theme-dark,html[data-theme="dark"] body) nav{background:rgba(9,13,43,0.97);box-shadow:0 1px 20px rgba(0,0,0,0.38)}
+:is(body.theme-dark,html[data-theme="dark"] body) .nav-logo-name,:is(body.theme-dark,html[data-theme="dark"] body) .sec-title,:is(body.theme-dark,html[data-theme="dark"] body) .exp-name,:is(body.theme-dark,html[data-theme="dark"] body) .svc-name,:is(body.theme-dark,html[data-theme="dark"] body) .why-t,:is(body.theme-dark,html[data-theme="dark"] body) .sec-name,:is(body.theme-dark,html[data-theme="dark"] body) .c-title,:is(body.theme-dark,html[data-theme="dark"] body) .foot-name,:is(body.theme-dark,html[data-theme="dark"] body) .popup-title{color:var(--ink-light)}
+:is(body.theme-dark,html[data-theme="dark"] body) .theme-toggle{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22)}
+:is(body.theme-dark,html[data-theme="dark"] body) .theme-toggle:hover{border-color:rgba(255,255,255,0.42);box-shadow:0 0 0 3px rgba(255,255,255,0.06)}
+:is(body.theme-dark,html[data-theme="dark"] body) .theme-dot{background:#FFFFFF;box-shadow:0 0 10px rgba(255,255,255,0.36);transform:translateX(16px)}
+:is(body.theme-dark,html[data-theme="dark"] body) .nav-logo svg text,:is(body.theme-dark,html[data-theme="dark"] body) .h-mark text,:is(body.theme-dark,html[data-theme="dark"] body) .foot-logo svg text{fill:#FFFFFF}
+:is(body.theme-dark,html[data-theme="dark"] body) .h-mark{filter:drop-shadow(0 0 22px rgba(255,255,255,0.28))}
+:is(body.theme-dark,html[data-theme="dark"] body) .hamburger span{background:var(--ink-light)}
+:is(body.theme-dark,html[data-theme="dark"] body) .mob-menu{background:rgba(9,13,43,0.98)}
+:is(body.theme-dark,html[data-theme="dark"] body) .mob-menu a{border-bottom-color:rgba(255,255,255,0.12)}
+:is(body.theme-dark,html[data-theme="dark"] body) .hero::before{background:radial-gradient(ellipse 900px 500px at center top,rgba(114,143,206,0.22),transparent 60%),radial-gradient(ellipse 600px 400px at center top,rgba(255,255,255,0.05),transparent 65%)}
+:is(body.theme-dark,html[data-theme="dark"] body) .btn-s{color:var(--ink-light);border-color:rgba(255,255,255,0.3)}
+:is(body.theme-dark,html[data-theme="dark"] body) .exp-card,:is(body.theme-dark,html[data-theme="dark"] body) .svc-card,:is(body.theme-dark,html[data-theme="dark"] body) .sec-c{box-shadow:0 2px 14px rgba(0,0,0,0.25)}
+:is(body.theme-dark,html[data-theme="dark"] body) .exp-card:hover{box-shadow:0 6px 22px rgba(0,0,0,0.35)}
+:is(body.theme-dark,html[data-theme="dark"] body) .svc-card.feat{box-shadow:0 6px 22px rgba(0,0,0,0.32)}
+:is(body.theme-dark,html[data-theme="dark"] body) .svc-list li{border-bottom-color:rgba(255,255,255,0.1)}
+:is(body.theme-dark,html[data-theme="dark"] body) .why-pt{border-bottom-color:rgba(255,255,255,0.12)}
+:is(body.theme-dark,html[data-theme="dark"] body) .fg input,:is(body.theme-dark,html[data-theme="dark"] body) .fg textarea,:is(body.theme-dark,html[data-theme="dark"] body) .fg select{border-color:rgba(255,255,255,0.18);color:var(--ink-light)}
+:is(body.theme-dark,html[data-theme="dark"] body) .fg select option{background:var(--dark2);color:var(--ink-light)}
+:is(body.theme-dark,html[data-theme="dark"] body) .foot-bottom{border-top-color:rgba(255,255,255,0.1)}
+:is(body.theme-dark,html[data-theme="dark"] body) .lang-switch{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22)}
+:is(body.theme-dark,html[data-theme="dark"] body) .lang-btn{color:var(--gray-light)}
+:is(body.theme-dark,html[data-theme="dark"] body) .lang-btn.active{color:var(--dark)}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 6% 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center top,rgba(201,168,76,0.06),transparent 60%);pointer-events:none}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at center top,rgba(114,143,206,0.22),transparent 60%),radial-gradient(ellipse 600px 400px at center top,rgba(21,27,84,0.05),transparent 65%);pointer-events:none}
 .h-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0;animation:fadeUp .8s .2s forwards}
-.h-mark{margin-bottom:20px;opacity:0;animation:fadeUp .8s .1s forwards}
+.h-mark{margin-bottom:20px;opacity:0;animation:fadeUp .8s .1s forwards;filter:drop-shadow(0 0 22px rgba(114,143,206,0.45))}
 .h-title{font-family:var(--serif);font-size:clamp(36px,7vw,80px);font-weight:400;line-height:1.15;margin-bottom:24px;opacity:0;animation:fadeUp .8s .4s forwards}
 .h-title em{color:var(--gold);font-style:normal}
 .h-line{width:50px;height:1px;background:var(--gold);margin:0 auto 24px;opacity:0;animation:fadeUp .8s .5s forwards}
@@ -52,7 +99,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,0.9
 .h-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .8s forwards}
 .btn-p{background:var(--gold);color:var(--dark);padding:14px 32px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);font-weight:500;transition:background .3s}
 .btn-p:hover{background:var(--gold-light)}
-.btn-s{background:transparent;color:var(--white);padding:14px 32px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.25);cursor:pointer;font-family:var(--sans);transition:all .3s}
+.btn-s{background:transparent;color:var(--dark);padding:14px 32px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;border:1px solid rgba(21,27,84,0.25);cursor:pointer;font-family:var(--sans);transition:all .3s}
 .btn-s:hover{border-color:var(--gold);color:var(--gold)}
 .h-scroll{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:48px;opacity:0;animation:fadeUp .8s 1.2s forwards}
 .h-scroll span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
@@ -64,7 +111,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,0.9
 /* SECTIONS */
 section{padding:80px 6%}
 .eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.sec-title{font-family:var(--serif);font-size:clamp(26px,4vw,48px);font-weight:400;color:var(--white);margin-bottom:18px}
+.sec-title{font-family:var(--serif);font-size:clamp(26px,4vw,48px);font-weight:400;color:var(--dark);margin-bottom:18px}
 .sec-div{width:50px;height:1px;background:var(--gold);margin-bottom:22px}
 .sec-sub{font-size:15px;color:var(--gray-light);max-width:600px;line-height:1.8}
 
@@ -73,78 +120,79 @@ section{padding:80px 6%}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto}
 .about-text p{color:var(--gray-light);margin-bottom:14px;font-size:15px;line-height:1.9}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.stat{background:var(--dark3);padding:28px 20px;text-align:center}
+.stat{background:var(--dark3);padding:28px 20px;text-align:center;border:1px solid rgba(114,143,206,0.14)}
 .stat:first-child{border-top:2px solid var(--gold)}
 .stat-n{font-family:var(--serif);font-size:36px;color:var(--gold);line-height:1}
 .stat-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:8px}
 
 /* EXPERTISE */
-.expertise{background:var(--dark)}
+.expertise{background:var(--white)}
 .exp-inner{max-width:1100px;margin:0 auto}
 .exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.exp-card{background:var(--dark3);padding:36px 28px;position:relative;overflow:hidden;transition:background .3s}
+.exp-card{background:var(--dark3);padding:36px 28px;position:relative;overflow:hidden;transition:background .3s,box-shadow .3s;border:1px solid rgba(114,143,206,0.14);box-shadow:0 2px 14px rgba(21,27,84,0.05)}
+.exp-card:hover{box-shadow:0 6px 22px rgba(21,27,84,0.09)}
 .exp-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height .5s}
 .exp-card:hover{background:var(--dark4)}
 .exp-card:hover::before{height:100%}
-.exp-n{font-family:var(--serif);font-size:44px;color:rgba(201,168,76,0.1);position:absolute;top:12px;right:20px;line-height:1}
-.exp-ico{width:38px;height:38px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.exp-n{font-family:var(--serif);font-size:44px;font-weight:600;color:rgba(114,143,206,0.4);position:absolute;top:12px;right:20px;line-height:1}
+.exp-ico{width:38px;height:38px;border:1px solid rgba(114,143,206,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .exp-ico svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:1.5}
-.exp-name{font-family:var(--serif);font-size:19px;color:var(--white);margin-bottom:14px;line-height:1.3}
+.exp-name{font-family:var(--serif);font-size:19px;color:var(--dark);margin-bottom:14px;line-height:1.3}
 .exp-desc{font-size:13px;color:var(--gray);line-height:1.8}
 
 /* SERVICES */
 .services{background:var(--dark2)}
 .svc-inner{max-width:1100px;margin:0 auto}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.svc-card{background:var(--dark3);padding:36px 28px;transition:background .3s}
-.svc-card.feat{background:var(--dark4);border-top:2px solid var(--gold)}
-.badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.3);padding:4px 12px;margin-bottom:16px}
-.svc-num{font-size:10px;letter-spacing:2px;color:var(--gray);margin-bottom:12px}
-.svc-name{font-family:var(--serif);font-size:20px;color:var(--white);margin-bottom:12px;line-height:1.3}
+.svc-card{background:var(--dark3);padding:36px 28px;transition:background .3s,box-shadow .3s;border:1px solid rgba(114,143,206,0.14);box-shadow:0 2px 14px rgba(21,27,84,0.05)}
+.svc-card.feat{background:var(--dark4);border-top:2px solid var(--gold);box-shadow:0 6px 22px rgba(21,27,84,0.08)}
+.badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(114,143,206,0.3);padding:4px 12px;margin-bottom:16px}
+.svc-num{font-size:11px;letter-spacing:2.5px;color:var(--gold);font-weight:700;margin-bottom:12px}
+.svc-name{font-family:var(--serif);font-size:20px;color:var(--dark);margin-bottom:12px;line-height:1.3}
 .svc-desc{font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:22px}
 .svc-list{list-style:none;margin-bottom:26px}
-.svc-list li{font-size:13px;color:var(--gray-light);padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:10px}
+.svc-list li{font-size:13px;color:var(--gray-light);padding:7px 0;border-bottom:1px solid rgba(21,27,84,0.08);display:flex;align-items:center;gap:10px}
 .svc-list li::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0}
 .svc-btn{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:8px;background:none;border:none;font-family:var(--sans);cursor:pointer;transition:gap .3s}
 .svc-btn:hover{gap:16px}
 .svc-btn::after{content:'→'}
 
 /* WHY */
-.why{background:var(--dark)}
+.why{background:var(--white)}
 .why-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-.why-pt{padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;gap:18px}
-.why-n{font-family:var(--serif);font-size:28px;color:rgba(201,168,76,0.2);line-height:1;flex-shrink:0;width:36px}
-.why-t{font-size:14px;font-weight:500;color:var(--white);margin-bottom:5px}
+.why-pt{padding:22px 0;border-bottom:1px solid rgba(21,27,84,0.1);display:flex;gap:18px}
+.why-n{font-family:var(--serif);font-size:28px;font-weight:600;color:rgba(114,143,206,0.55);line-height:1;flex-shrink:0;width:36px}
+.why-t{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:5px}
 .why-d{font-size:13px;color:var(--gray);line-height:1.7}
 
 /* SECTEURS */
 .secteurs{background:var(--dark2)}
 .sec-inner{max-width:1100px;margin:0 auto}
 .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.sec-c{background:var(--dark3);padding:28px 22px;display:flex;flex-direction:column;gap:12px;transition:background .3s;position:relative;overflow:hidden}
+.sec-c{background:var(--dark3);padding:28px 22px;display:flex;flex-direction:column;gap:12px;transition:background .3s,box-shadow .3s;position:relative;overflow:hidden;border:1px solid rgba(114,143,206,0.14);box-shadow:0 2px 14px rgba(21,27,84,0.05)}
 .sec-c::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .4s}
 .sec-c:hover{background:var(--dark4)}
 .sec-c:hover::after{width:100%}
-.sec-ico{width:40px;height:40px;border:1px solid rgba(201,168,76,0.25);display:flex;align-items:center;justify-content:center}
+.sec-ico{width:40px;height:40px;border:1px solid rgba(114,143,206,0.25);display:flex;align-items:center;justify-content:center}
 .sec-ico svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5}
-.sec-name{font-family:var(--serif);font-size:18px;color:var(--white)}
+.sec-name{font-family:var(--serif);font-size:18px;color:var(--dark)}
 .sec-d{font-size:12px;color:var(--gray);line-height:1.8}
 
 /* CONTACT */
-.contact{background:var(--dark);position:relative}
-.contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,0.05),transparent 60%);pointer-events:none}
+.contact{background:var(--white);position:relative}
+.contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(114,143,206,0.05),transparent 60%);pointer-events:none}
 .contact-inner{max-width:860px;margin:0 auto;text-align:center}
-.c-title{font-family:var(--serif);font-size:clamp(26px,4vw,50px);color:var(--white);margin-bottom:14px;line-height:1.2}
+.c-title{font-family:var(--serif);font-size:clamp(26px,4vw,50px);color:var(--dark);margin-bottom:14px;line-height:1.2}
 .c-sub{font-size:14px;color:var(--gray-light);margin-bottom:48px;font-style:italic}
 .c-form{display:grid;grid-template-columns:1fr 1fr;gap:2px;text-align:left;margin-bottom:2px}
 .fg{position:relative}
 .fg.full{grid-column:1/-1}
-.fg input,.fg textarea,.fg select{width:100%;background:var(--dark2);border:1px solid rgba(255,255,255,0.08);color:var(--white);padding:16px 18px;font-size:14px;font-family:var(--sans);outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;border-radius:0}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--dark2);border:1px solid rgba(21,27,84,0.15);color:var(--dark);padding:16px 18px;font-size:14px;font-family:var(--sans);outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;border-radius:0}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--gray)}
-.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(201,168,76,0.5)}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(114,143,206,0.5)}
 .fg textarea{height:130px;resize:none}
 .fg select{color:var(--gray);cursor:pointer}
-.fg select option{background:var(--dark2);color:var(--white)}
+.fg select option{background:var(--dark2);color:var(--dark)}
 .c-submit{width:100%;background:var(--gold);color:var(--dark);padding:16px;font-size:12px;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);font-weight:500;transition:background .3s;margin-top:2px}
 .c-submit:hover{background:var(--gold-light)}
 .c-info{display:flex;justify-content:center;gap:40px;margin-top:48px;flex-wrap:wrap}
@@ -152,25 +200,25 @@ section{padding:80px 6%}
 .c-item-v{font-size:13px;color:var(--gray-light)}
 
 /* FOOTER */
-footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);padding:40px 6%}
+footer{background:var(--dark2);border-top:1px solid rgba(114,143,206,0.15);padding:40px 6%}
 .foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .foot-logo{display:flex;align-items:center;gap:10px}
-.foot-name{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--white)}
+.foot-name{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--dark)}
 .foot-name em{color:var(--gold);font-style:normal}
 .foot-slogan{font-size:12px;color:var(--gray);font-style:italic}
 .foot-links{display:flex;gap:20px;flex-wrap:wrap}
 .foot-links a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .3s}
 .foot-links a:hover{color:var(--gold)}
-.foot-bottom{max-width:1100px;margin:20px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;font-size:11px;color:var(--gray)}
+.foot-bottom{max-width:1100px;margin:20px auto 0;padding-top:20px;border-top:1px solid rgba(21,27,84,0.08);text-align:center;font-size:11px;color:var(--gray)}
 
 /* POPUP */
 .popup-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);align-items:center;justify-content:center}
 .popup-overlay.show{display:flex}
-.popup-box{background:var(--dark3);border:1px solid rgba(201,168,76,0.25);max-width:460px;width:90%;padding:48px 40px;text-align:center}
+.popup-box{background:var(--dark3);border:1px solid rgba(114,143,206,0.25);max-width:460px;width:90%;padding:48px 40px;text-align:center}
 .popup-icon{width:56px;height:56px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
 .popup-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.8}
 .popup-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-.popup-title{font-family:var(--serif);font-size:26px;color:var(--white);font-weight:400;margin-bottom:16px;line-height:1.3}
+.popup-title{font-family:var(--serif);font-size:26px;color:var(--dark);font-weight:400;margin-bottom:16px;line-height:1.3}
 .popup-div{width:40px;height:1px;background:var(--gold);margin:0 auto 20px}
 .popup-text{font-size:14px;color:var(--gray-light);line-height:1.8}
 .popup-close{margin-top:32px;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:11px 32px;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:all .3s}
@@ -186,6 +234,10 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 @media(max-width:768px){
   nav{padding:0 4%}
   .nav-links,.nav-cta{display:none}
+  .nav-actions{margin-left:auto;margin-right:14px}
+  .nav-actions .lang-switch{display:none}
+  .theme-toggle{width:38px;height:22px;min-width:38px;padding:3px}
+  .theme-dot{width:14px;height:14px}
   .hamburger{display:flex}
   section{padding:60px 5%}
   .hero{padding:90px 5% 50px}
@@ -211,22 +263,30 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});return false">
-    <svg width="34" height="40" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg">
-      <text x="50" y="72" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="88" font-weight="600" fill="#C9A84C" letter-spacing="-8">Y</text>
-      <text x="54" y="98" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="76" font-weight="600" fill="#C9A84C">C</text>
+    <svg width="46" height="27" viewBox="0 0 170 100" xmlns="http://www.w3.org/2000/svg">
+      <text x="85" y="78" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="90" font-weight="600" fill="#728FCE" letter-spacing="-8">YC</text>
     </svg>
     <div>
       <div class="nav-logo-name"><em>YACOUT</em> CONSULTING</div>
-      <div class="nav-logo-sub">Conseil en Financement</div>
+      <div class="nav-logo-sub" data-i18n="nav.sub">Conseil en Financement</div>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">À propos</a></li>
-    <li><a href="#expertise">Expertises</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+    <li><a href="#expertise" data-i18n="nav.expertise">Expertises</a></li>
+    <li><a href="#services" data-i18n="nav.services">Services</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Nous contacter</button>
+  <div class="nav-actions">
+    <div class="lang-switch" role="group" aria-label="Choix de la langue / Language selection">
+      <button type="button" class="lang-btn active" data-lang="fr" aria-label="Passer en français">FR</button>
+      <button type="button" class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
+    </div>
+    <button class="theme-toggle" type="button" data-theme-toggle onclick="toggleTheme()" aria-label="Activer le mode sombre" aria-pressed="false">
+      <span class="theme-dot" aria-hidden="true"></span><span data-theme-label>Dark</span>
+    </button>
+    <button class="nav-cta" data-i18n="nav.cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Nous contacter</button>
+  </div>
   <div class="hamburger" id="hbg" onclick="toggleMenu()">
     <span id="h1"></span><span id="h2"></span><span id="h3"></span>
   </div>
@@ -234,30 +294,36 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
-  <a href="#about" onclick="closeMenu()">À propos</a>
-  <a href="#expertise" onclick="closeMenu()">Expertises</a>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#secteurs" onclick="closeMenu()">Secteurs</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-  <button class="mob-cta" onclick="closeMenu();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Prendre rendez-vous</button>
+  <a href="#about" data-i18n="nav.about" onclick="closeMenu()">À propos</a>
+  <a href="#expertise" data-i18n="nav.expertise" onclick="closeMenu()">Expertises</a>
+  <a href="#services" data-i18n="nav.services" onclick="closeMenu()">Services</a>
+  <a href="#secteurs" data-i18n="nav.secteurs" onclick="closeMenu()">Secteurs</a>
+  <a href="#contact" data-i18n="nav.contact" onclick="closeMenu()">Contact</a>
+  <button class="theme-toggle mob-theme" type="button" data-theme-toggle onclick="toggleTheme()" aria-label="Activer le mode sombre" aria-pressed="false">
+    <span class="theme-dot" aria-hidden="true"></span><span data-theme-label>Dark Mode</span>
+  </button>
+  <div class="lang-switch mob" role="group" aria-label="Choix de la langue / Language selection">
+    <button type="button" class="lang-btn active" data-lang="fr" aria-label="Passer en français">FR</button>
+    <button type="button" class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
+  </div>
+  <button class="mob-cta" data-i18n="mob.cta" onclick="closeMenu();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Prendre rendez-vous</button>
 </div>
 <main>
 <!-- HERO -->
 <section class="hero" id="home">
-  <svg class="h-mark" width="64" height="76" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg">
-    <text x="50" y="72" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="88" font-weight="600" fill="#C9A84C" letter-spacing="-8">Y</text>
-    <text x="54" y="98" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="76" font-weight="600" fill="#C9A84C">C</text>
+  <svg class="h-mark" width="92" height="54" viewBox="0 0 170 100" xmlns="http://www.w3.org/2000/svg">
+    <text x="85" y="78" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="90" font-weight="600" fill="#728FCE" letter-spacing="-8">YC</text>
   </svg>
-  <p class="h-eyebrow">Cabinet de Conseil en Financement</p>
-  <h1 class="h-title">Structurer. Optimiser.<br><em>Financer.</em></h1>
+  <p class="h-eyebrow" data-i18n="hero.eyebrow">Cabinet de Conseil en Financement</p>
+  <h1 class="h-title" data-i18n-html="hero.title">Structurer. Optimiser.<br><em>Financer.</em></h1>
   <div class="h-line"></div>
-  <p class="h-slogan">Votre vision. Notre expertise. Votre financement.</p>
+  <p class="h-slogan" data-i18n="hero.slogan">Votre vision. Notre expertise. Votre financement.</p>
   <div class="h-btns">
-    <button class="btn-p" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Prendre rendez-vous</button>
-    <button class="btn-s" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Découvrir nos services</button>
+    <button class="btn-p" data-i18n="hero.btn1" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Prendre rendez-vous</button>
+    <button class="btn-s" data-i18n="hero.btn2" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Découvrir nos services</button>
   </div>
   <div class="h-scroll">
-    <span>Défiler</span>
+    <span data-i18n="hero.scroll">Défiler</span>
     <div class="scroll-bar"></div>
   </div>
 </section>
@@ -267,30 +333,30 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-grid">
-    <div class="reveal">
-      <p class="eyebrow">Notre mission</p>
-      <h2 class="sec-title">Un partenaire stratégique pour votre financement</h2>
+    <div class="reveal about-text">
+      <p class="eyebrow" data-i18n="about.eyebrow">Notre mission</p>
+      <h2 class="sec-title" data-i18n="about.title">Un partenaire stratégique pour votre financement</h2>
       <div class="sec-div"></div>
-      <p>YACOUT CONSULTING est un cabinet spécialisé dans l'ingénierie financière au service des entreprises, porteurs de projets et investisseurs.</p>
-      <p>Nous accompagnons nos clients dans la structuration, l'optimisation et la sécurisation de leurs opérations de financement — avec rigueur, confidentialité et une expertise terrain reconnue.</p>
-      <p style="color:var(--gold-light);font-style:italic;margin-top:20px;font-size:15px">« Nous transformons vos ambitions en réalité financière. »</p>
+      <p data-i18n="about.p1">YACOUT CONSULTING est un cabinet spécialisé dans l'ingénierie financière au service des entreprises, porteurs de projets et investisseurs.</p>
+      <p data-i18n="about.p2">Nous accompagnons nos clients dans la structuration, l'optimisation et la sécurisation de leurs opérations de financement — avec rigueur, confidentialité et une expertise terrain reconnue.</p>
+      <p style="color:var(--gold-light);font-style:italic;margin-top:20px;font-size:15px" data-i18n="about.quote">« Nous transformons vos ambitions en réalité financière. »</p>
     </div>
     <div class="stats reveal">
       <div class="stat">
-        <div class="stat-n" style="font-size:22px;padding-top:4px">Sur mesure</div>
-        <div class="stat-l">Approche personnalisée</div>
+        <div class="stat-n" style="font-size:22px;padding-top:4px" data-i18n="about.stat1title">Sur mesure</div>
+        <div class="stat-l" data-i18n="about.stat1label">Approche personnalisée</div>
       </div>
       <div class="stat">
         <div class="stat-n">95%</div>
-        <div class="stat-l">Taux de succès</div>
+        <div class="stat-l" data-i18n="about.stat2label">Taux de succès</div>
       </div>
       <div class="stat">
         <div class="stat-n">100+</div>
-        <div class="stat-l">Dossiers traités</div>
+        <div class="stat-l" data-i18n="about.stat3label">Dossiers traités</div>
       </div>
       <div class="stat">
         <div class="stat-n">3</div>
-        <div class="stat-l">Domaines d'expertise</div>
+        <div class="stat-l" data-i18n="about.stat4label">Domaines d'expertise</div>
       </div>
     </div>
   </div>
@@ -302,29 +368,29 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <section class="expertise" id="expertise">
   <div class="exp-inner">
     <div class="reveal" style="margin-bottom:50px">
-      <p class="eyebrow">Nos domaines</p>
-      <h2 class="sec-title">Nos expertises</h2>
+      <p class="eyebrow" data-i18n="expertise.eyebrow">Nos domaines</p>
+      <h2 class="sec-title" data-i18n="expertise.title">Nos expertises</h2>
       <div class="sec-div"></div>
-      <p class="sec-sub">Une maîtrise approfondie des mécanismes de financement pour maximiser vos chances d'aboutissement.</p>
+      <p class="sec-sub" data-i18n="expertise.sub">Une maîtrise approfondie des mécanismes de financement pour maximiser vos chances d'aboutissement.</p>
     </div>
     <div class="exp-grid">
       <div class="exp-card reveal">
         <div class="exp-n">01</div>
         <div class="exp-ico"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
-        <h3 class="exp-name">Financement Structuré (Bancaire)</h3>
-        <p class="exp-desc">Accompagnement complet dans l'accès au financement bancaire — structuration rigoureuse du dossier, réponse aux exigences des comités de crédit et sécurisation des conditions d'obtention.</p>
+        <h3 class="exp-name" data-i18n="exp1.name">Financement Structuré (Bancaire)</h3>
+        <p class="exp-desc" data-i18n="exp1.desc">Accompagnement complet dans l'accès au financement bancaire — structuration rigoureuse du dossier, réponse aux exigences des comités de crédit et sécurisation des conditions d'obtention.</p>
       </div>
       <div class="exp-card reveal">
         <div class="exp-n">02</div>
         <div class="exp-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <h3 class="exp-name">Financements Publics & Dispositifs</h3>
-        <p class="exp-desc">Mobilisation des dispositifs publics pour optimiser le financement de vos projets, réduire l'effort d'investissement et maximiser les opportunités offertes par les programmes étatiques.</p>
+        <h3 class="exp-name" data-i18n="exp2.name">Financements Publics & Dispositifs</h3>
+        <p class="exp-desc" data-i18n="exp2.desc">Mobilisation des dispositifs publics pour optimiser le financement de vos projets, réduire l'effort d'investissement et maximiser les opportunités offertes par les programmes étatiques.</p>
       </div>
       <div class="exp-card reveal">
         <div class="exp-n">03</div>
         <div class="exp-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
-        <h3 class="exp-name">Capital & Partenariats Financiers</h3>
-        <p class="exp-desc">Identification et structuration de financements alternatifs — capital-investissement, partenaires financiers stratégiques — pour soutenir vos projets de croissance ou de transformation.</p>
+        <h3 class="exp-name" data-i18n="exp3.name">Capital & Partenariats Financiers</h3>
+        <p class="exp-desc" data-i18n="exp3.desc">Identification et structuration de financements alternatifs — capital-investissement, partenaires financiers stratégiques — pour soutenir vos projets de croissance ou de transformation.</p>
       </div>
     </div>
   </div>
@@ -336,51 +402,51 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <section class="services" id="services">
   <div class="svc-inner">
     <div class="reveal" style="margin-bottom:50px">
-      <p class="eyebrow">Nos packs</p>
-      <h2 class="sec-title">Une offre progressive, sur-mesure</h2>
+      <p class="eyebrow" data-i18n="services.eyebrow">Nos packs</p>
+      <h2 class="sec-title" data-i18n="services.title">Une offre progressive, sur-mesure</h2>
       <div class="sec-div"></div>
-      <p class="sec-sub">Du diagnostic à l'accompagnement complet — choisissez le niveau d'intervention adapté à vos besoins.</p>
+      <p class="sec-sub" data-i18n="services.sub">Du diagnostic à l'accompagnement complet — choisissez le niveau d'intervention adapté à vos besoins.</p>
     </div>
     <div class="svc-grid">
       <div class="svc-card reveal">
-        <div class="svc-num">Pack 01</div>
-        <span class="badge">Essentiel</span>
-        <h3 class="svc-name">Diagnostic Stratégique</h3>
-        <p class="svc-desc">Une lecture experte et rapide de votre situation financière pour identifier les meilleures voies de financement.</p>
+        <div class="svc-num" data-i18n="svc1.num">Pack 01</div>
+        <span class="badge" data-i18n="svc1.badge">Essentiel</span>
+        <h3 class="svc-name" data-i18n="svc1.name">Diagnostic Stratégique</h3>
+        <p class="svc-desc" data-i18n="svc1.desc">Une lecture experte et rapide de votre situation financière pour identifier les meilleures voies de financement.</p>
         <ul class="svc-list">
-          <li>Analyse du besoin et de la capacité de financement</li>
-          <li>Identification des leviers financiers mobilisables</li>
-          <li>Recommandations structurées et priorisées</li>
+          <li data-i18n="svc1.li1">Analyse du besoin et de la capacité de financement</li>
+          <li data-i18n="svc1.li2">Identification des leviers financiers mobilisables</li>
+          <li data-i18n="svc1.li3">Recommandations structurées et priorisées</li>
         </ul>
-        <button class="svc-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
+        <button class="svc-btn" data-i18n="svc.btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
       </div>
       <div class="svc-card feat reveal">
-        <div class="svc-num">Pack 02</div>
-        <span class="badge">Recommandé</span>
-        <h3 class="svc-name">Structuration & Ingénierie Financière</h3>
-        <p class="svc-desc">Un dossier solide, rigoureusement structuré pour convaincre les financeurs et maximiser vos chances d'obtention.</p>
+        <div class="svc-num" data-i18n="svc2.num">Pack 02</div>
+        <span class="badge" data-i18n="svc2.badge">Recommandé</span>
+        <h3 class="svc-name" data-i18n="svc2.name">Structuration & Ingénierie Financière</h3>
+        <p class="svc-desc" data-i18n="svc2.desc">Un dossier solide, rigoureusement structuré pour convaincre les financeurs et maximiser vos chances d'obtention.</p>
         <ul class="svc-list">
-          <li>Diagnostic approfondi inclus</li>
-          <li>Élaboration d'un business plan professionnel</li>
-          <li>Modélisation financière avancée</li>
-          <li>Optimisation de la structure de financement</li>
-          <li>Ciblage et approche des financeurs</li>
+          <li data-i18n="svc2.li1">Diagnostic approfondi inclus</li>
+          <li data-i18n="svc2.li2">Élaboration d'un business plan professionnel</li>
+          <li data-i18n="svc2.li3">Modélisation financière avancée</li>
+          <li data-i18n="svc2.li4">Optimisation de la structure de financement</li>
+          <li data-i18n="svc2.li5">Ciblage et approche des financeurs</li>
         </ul>
-        <button class="svc-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
+        <button class="svc-btn" data-i18n="svc.btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-num">Pack 03</div>
-        <span class="badge">Complet</span>
-        <h3 class="svc-name">Exécution & Accompagnement</h3>
-        <p class="svc-desc">Une prise en charge intégrale, de la structuration jusqu'à l'obtention effective du financement.</p>
+        <div class="svc-num" data-i18n="svc3.num">Pack 03</div>
+        <span class="badge" data-i18n="svc3.badge">Complet</span>
+        <h3 class="svc-name" data-i18n="svc3.name">Exécution & Accompagnement</h3>
+        <p class="svc-desc" data-i18n="svc3.desc">Une prise en charge intégrale, de la structuration jusqu'à l'obtention effective du financement.</p>
         <ul class="svc-list">
-          <li>Packs 01 & 02 inclus</li>
-          <li>Pilotage du processus de financement</li>
-          <li>Coordination avec les partenaires financiers</li>
-          <li>Négociation des conditions (taux, garanties, maturité)</li>
-          <li>Accompagnement jusqu'au déblocage des fonds</li>
+          <li data-i18n="svc3.li1">Packs 01 & 02 inclus</li>
+          <li data-i18n="svc3.li2">Pilotage du processus de financement</li>
+          <li data-i18n="svc3.li3">Coordination avec les partenaires financiers</li>
+          <li data-i18n="svc3.li4">Négociation des conditions (taux, garanties, maturité)</li>
+          <li data-i18n="svc3.li5">Accompagnement jusqu'au déblocage des fonds</li>
         </ul>
-        <button class="svc-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
+        <button class="svc-btn" data-i18n="svc.btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
       </div>
     </div>
   </div>
@@ -392,16 +458,16 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <section class="why" id="why">
   <div class="why-inner">
     <div class="reveal">
-      <p class="eyebrow">Pourquoi nous</p>
-      <h2 class="sec-title">L'excellence au service de votre financement</h2>
+      <p class="eyebrow" data-i18n="why.eyebrow">Pourquoi nous</p>
+      <h2 class="sec-title" data-i18n="why.title">L'excellence au service de votre financement</h2>
       <div class="sec-div"></div>
-      <p class="sec-sub">YACOUT CONSULTING allie expertise technique, réseau solide et engagement sans failles pour chaque client.</p>
+      <p class="sec-sub" data-i18n="why.sub">YACOUT CONSULTING allie expertise technique, réseau solide et engagement sans failles pour chaque client.</p>
     </div>
     <div>
-      <div class="why-pt reveal"><div class="why-n">01</div><div><div class="why-t">Conseil senior & impliqué</div><div class="why-d">Implication directe des associés à chaque étape clé — aucun dossier traité à distance ou délégué sans contrôle.</div></div></div>
-      <div class="why-pt reveal"><div class="why-n">02</div><div><div class="why-t">Approche sur mesure</div><div class="why-d">Chaque mission est structurée autour de votre configuration spécifique — actionnariale, sectorielle et stratégique.</div></div></div>
-      <div class="why-pt reveal"><div class="why-n">03</div><div><div class="why-t">Culture de l'exigence</div><div class="why-d">Rigueur constante sur la qualité des analyses, des livrables et des arbitrages — à chaque étape du processus.</div></div></div>
-      <div class="why-pt reveal"><div class="why-n">04</div><div><div class="why-t">Indépendance & confidentialité</div><div class="why-d">Un conseil objectif, totalement aligné avec vos intérêts, avec une gestion strictement confidentielle de chaque opération.</div></div></div>
+      <div class="why-pt reveal"><div class="why-n">01</div><div><div class="why-t" data-i18n="why1.title">Conseil senior & impliqué</div><div class="why-d" data-i18n="why1.desc">Implication directe des associés à chaque étape clé — aucun dossier traité à distance ou délégué sans contrôle.</div></div></div>
+      <div class="why-pt reveal"><div class="why-n">02</div><div><div class="why-t" data-i18n="why2.title">Approche sur mesure</div><div class="why-d" data-i18n="why2.desc">Chaque mission est structurée autour de votre configuration spécifique — actionnariale, sectorielle et stratégique.</div></div></div>
+      <div class="why-pt reveal"><div class="why-n">03</div><div><div class="why-t" data-i18n="why3.title">Culture de l'exigence</div><div class="why-d" data-i18n="why3.desc">Rigueur constante sur la qualité des analyses, des livrables et des arbitrages — à chaque étape du processus.</div></div></div>
+      <div class="why-pt reveal"><div class="why-n">04</div><div><div class="why-t" data-i18n="why4.title">Indépendance & confidentialité</div><div class="why-d" data-i18n="why4.desc">Un conseil objectif, totalement aligné avec vos intérêts, avec une gestion strictement confidentielle de chaque opération.</div></div></div>
     </div>
   </div>
 </section>
@@ -412,20 +478,20 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <section class="secteurs" id="secteurs">
   <div class="sec-inner">
     <div class="reveal" style="text-align:center;margin-bottom:50px">
-      <p class="eyebrow">Secteurs accompagnés</p>
-      <h2 class="sec-title">Une expertise multi-sectorielle</h2>
+      <p class="eyebrow" data-i18n="secteurs.eyebrow">Secteurs accompagnés</p>
+      <h2 class="sec-title" data-i18n="secteurs.title">Une expertise multi-sectorielle</h2>
       <div class="sec-div" style="margin:0 auto 20px"></div>
-      <p style="color:var(--gray-light);font-size:14px;max-width:560px;margin:0 auto">Nous intervenons auprès d'acteurs de secteurs variés, avec une compréhension fine des enjeux financiers propres à chaque activité.</p>
+      <p style="color:var(--gray-light);font-size:14px;max-width:560px;margin:0 auto" data-i18n="secteurs.sub">Nous intervenons auprès d'acteurs de secteurs variés, avec une compréhension fine des enjeux financiers propres à chaque activité.</p>
     </div>
     <div class="sec-grid">
-      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg></div><div class="sec-name">Industrie</div><div class="sec-d">Financement d'unités de production, équipements industriels et projets d'expansion.</div></div>
-      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="sec-name">Immobilier</div><div class="sec-d">Structuration de financements pour projets résidentiels, commerciaux et de promotion.</div></div>
-      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M16 4v16M2 12h20"/></svg></div><div class="sec-name">Hôtellerie</div><div class="sec-d">Accompagnement des projets hôteliers, de rénovation et de développement des capacités d'accueil.</div></div>
-      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="4"/><path d="M12 2a10 10 0 0 1 7.4 16.6L12 22l-7.4-3.4A10 10 0 0 1 12 2z"/></svg></div><div class="sec-name">Tourisme</div><div class="sec-d">Financement de complexes touristiques, infrastructures et projets d'écotourisme.</div></div>
-      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 4 10"/><path d="M2 20h20"/></svg></div><div class="sec-name">Pêche & Maritime</div><div class="sec-d">Financement de flottilles, infrastructures portuaires et unités de valorisation.</div></div>
-      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div class="sec-name">Agriculture</div><div class="sec-d">Accès aux financements agricoles, dispositifs publics et partenariats agro-industriels.</div></div>
+      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg></div><div class="sec-name" data-i18n="sec1.name">Industrie</div><div class="sec-d" data-i18n="sec1.desc">Financement d'unités de production, équipements industriels et projets d'expansion.</div></div>
+      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="sec-name" data-i18n="sec2.name">Immobilier</div><div class="sec-d" data-i18n="sec2.desc">Structuration de financements pour projets résidentiels, commerciaux et de promotion.</div></div>
+      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M16 4v16M2 12h20"/></svg></div><div class="sec-name" data-i18n="sec3.name">Hôtellerie</div><div class="sec-d" data-i18n="sec3.desc">Accompagnement des projets hôteliers, de rénovation et de développement des capacités d'accueil.</div></div>
+      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="4"/><path d="M12 2a10 10 0 0 1 7.4 16.6L12 22l-7.4-3.4A10 10 0 0 1 12 2z"/></svg></div><div class="sec-name" data-i18n="sec4.name">Tourisme</div><div class="sec-d" data-i18n="sec4.desc">Financement de complexes touristiques, infrastructures et projets d'écotourisme.</div></div>
+      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 4 10"/><path d="M2 20h20"/></svg></div><div class="sec-name" data-i18n="sec5.name">Pêche & Maritime</div><div class="sec-d" data-i18n="sec5.desc">Financement de flottilles, infrastructures portuaires et unités de valorisation.</div></div>
+      <div class="sec-c reveal"><div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div class="sec-name" data-i18n="sec6.name">Agriculture</div><div class="sec-d" data-i18n="sec6.desc">Accès aux financements agricoles, dispositifs publics et partenariats agro-industriels.</div></div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:32px;font-size:12px;color:var(--gray);letter-spacing:1px">Et bien d'autres secteurs sur demande — chaque projet mérite une approche dédiée.</p>
+    <p class="reveal" style="text-align:center;margin-top:32px;font-size:12px;color:var(--gray);letter-spacing:1px" data-i18n="secteurs.footer">Et bien d'autres secteurs sur demande — chaque projet mérite une approche dédiée.</p>
   </div>
 </section>
 
@@ -435,37 +501,37 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <section class="contact" id="contact">
   <div class="contact-inner">
     <div class="reveal">
-      <p class="eyebrow" style="text-align:center">Parlons de votre projet</p>
-      <h2 class="c-title">Prenons rendez-vous</h2>
-      <p class="c-sub">Décrivez-nous votre besoin, nous vous recontactons sous 24h.</p>
+      <p class="eyebrow" style="text-align:center" data-i18n="contact.eyebrow">Parlons de votre projet</p>
+      <h2 class="c-title" data-i18n="contact.title">Prenons rendez-vous</h2>
+      <p class="c-sub" data-i18n="contact.sub">Décrivez-nous votre besoin, nous vous recontactons sous 24h.</p>
     </div>
     <div class="reveal">
       <form id="cForm">
         <input type="hidden" name="access_key" value="664d634e-b674-4f26-9feb-a3e05eaf5c2b">
         <input type="hidden" name="subject" value="Nouvelle demande depuis votre landing page">
         <div class="c-form">
-          <div class="fg"><input type="text" name="nom_prenom" placeholder="Nom & Prénom" required/></div>
-          <div class="fg"><input type="email" name="email" placeholder="Adresse email" required/></div>
-          <div class="fg"><input type="tel" name="telephone" placeholder="Téléphone" required/></div>
+          <div class="fg"><input type="text" name="nom_prenom" data-i18n-placeholder="form.name" placeholder="Nom & Prénom" required/></div>
+          <div class="fg"><input type="email" name="email" data-i18n-placeholder="form.email" placeholder="Adresse email" required/></div>
+          <div class="fg"><input type="tel" name="telephone" data-i18n-placeholder="form.phone" placeholder="Téléphone" required/></div>
           <div class="fg">
            <label for="type_besoin" style="display:none;">Type de besoin</label>
              <select name="type_besoin" id="type_besoin" required>
-               <option value="" disabled selected>Type de besoin</option>
-               <option>Financement Structuré (Bancaire)</option>
-               <option>Financements Publics & Dispositifs</option>
-               <option>Capital & Partenariats Financiers</option>
-               <option>Autre</option>
+               <option value="" disabled selected data-i18n="form.needType">Type de besoin</option>
+               <option data-i18n="form.opt1">Financement Structuré (Bancaire)</option>
+               <option data-i18n="form.opt2">Financements Publics & Dispositifs</option>
+               <option data-i18n="form.opt3">Capital & Partenariats Financiers</option>
+               <option data-i18n="form.opt4">Autre</option>
              </select>
           </div>
-          <div class="fg full"><textarea name="message" placeholder="Décrivez brièvement votre projet de financement…" required></textarea></div>
+          <div class="fg full"><textarea name="message" data-i18n-placeholder="form.message" placeholder="Décrivez brièvement votre projet de financement…" required></textarea></div>
         </div>
-        <button type="submit" class="c-submit" id="submitBtn">Envoyer ma demande →</button>
+        <button type="submit" class="c-submit" id="submitBtn" data-i18n="submit.default">Envoyer ma demande →</button>
       </form>
     </div>
     <div class="c-info reveal">
-  <div><div class="c-item-l">Email</div><div class="c-item-v"><a href="mailto:contact@yacoutconsulting.com" style="color:inherit;text-decoration:none;">contact@yacoutconsulting.com</a></div></div>
-  <div><div class="c-item-l">Téléphone</div><div class="c-item-v"><a href="tel:+212708278420" style="color:inherit;text-decoration:none;">+212 708 278 420</a></div></div>
-  <div><div class="c-item-l">Localisation</div><div class="c-item-v">Casablanca, Maroc</div></div>
+  <div><div class="c-item-l" data-i18n="contact.email">Email</div><div class="c-item-v"><a href="mailto:contact@yacoutconsulting.com" style="color:inherit;text-decoration:none;">contact@yacoutconsulting.com</a></div></div>
+  <div><div class="c-item-l" data-i18n="contact.phone">Téléphone</div><div class="c-item-v"><a href="tel:+212708278420" style="color:inherit;text-decoration:none;">+212 708 278 420</a></div></div>
+  <div><div class="c-item-l" data-i18n="contact.location">Localisation</div><div class="c-item-v" data-i18n="contact.locationValue">Casablanca, Maroc</div></div>
 </div>
   </div>
 </section>
@@ -474,11 +540,11 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <p class="popup-eyebrow">Message reçu</p>
-    <h3 class="popup-title">Votre demande a bien été transmise</h3>
+    <p class="popup-eyebrow" data-i18n="popup.eyebrow">Message reçu</p>
+    <h3 class="popup-title" data-i18n="popup.title">Votre demande a bien été transmise</h3>
     <div class="popup-div"></div>
-    <p class="popup-text">Un consultant YACOUT prendra contact avec vous dans les meilleurs délais pour échanger sur votre projet de financement.</p>
-    <button class="popup-close" onclick="document.getElementById('popup').classList.remove('show')">Fermer</button>
+    <p class="popup-text" data-i18n="popup.text">Un consultant YACOUT prendra contact avec vous dans les meilleurs délais pour échanger sur votre projet de financement.</p>
+    <button class="popup-close" data-i18n="popup.close" onclick="document.getElementById('popup').classList.remove('show')">Fermer</button>
   </div>
 </div>
 </main>
@@ -486,24 +552,231 @@ footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);paddin
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <svg width="22" height="26" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg">
-        <text x="50" y="72" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="88" font-weight="600" fill="#C9A84C" letter-spacing="-8">Y</text>
-        <text x="54" y="98" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="76" font-weight="600" fill="#C9A84C">C</text>
+      <svg width="30" height="18" viewBox="0 0 170 100" xmlns="http://www.w3.org/2000/svg">
+        <text x="85" y="78" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="90" font-weight="600" fill="#728FCE" letter-spacing="-8">YC</text>
       </svg>
       <span class="foot-name"><em>YACOUT</em> CONSULTING</span>
     </div>
-    <div class="foot-slogan">Votre vision. Notre expertise. Votre financement.</div>
+    <div class="foot-slogan" data-i18n="hero.slogan">Votre vision. Notre expertise. Votre financement.</div>
     <div class="foot-links">
-      <a href="#about">À propos</a>
-      <a href="#expertise">Expertises</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-i18n="nav.about">À propos</a>
+      <a href="#expertise" data-i18n="nav.expertise">Expertises</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </div>
   </div>
-  <div class="foot-bottom">© 2025 YACOUT CONSULTING — Tous droits réservés.</div>
+  <div class="foot-bottom" data-i18n="foot.bottom">© 2025 YACOUT CONSULTING — Tous droits réservés.</div>
 </footer>
 
 <script>
+// ===== Language switcher =====
+const langKey='yacout-lang';
+let currentLang='fr';
+
+const translations={
+  'nav.about':{fr:'À propos',en:'About'},
+  'nav.expertise':{fr:'Expertises',en:'Expertise'},
+  'nav.services':{fr:'Services',en:'Services'},
+  'nav.secteurs':{fr:'Secteurs',en:'Sectors'},
+  'nav.contact':{fr:'Contact',en:'Contact'},
+  'nav.cta':{fr:'Nous contacter',en:'Contact Us'},
+  'nav.sub':{fr:'Conseil en Financement',en:'Financial Advisory'},
+  'mob.cta':{fr:'Prendre rendez-vous',en:'Book a Consultation'},
+
+  'hero.eyebrow':{fr:'Cabinet de Conseil en Financement',en:'Financial Advisory Firm'},
+  'hero.slogan':{fr:'Votre vision. Notre expertise. Votre financement.',en:'Your vision. Our expertise. Your financing.'},
+  'hero.btn1':{fr:'Prendre rendez-vous',en:'Book a Consultation'},
+  'hero.btn2':{fr:'Découvrir nos services',en:'Discover Our Services'},
+  'hero.scroll':{fr:'Défiler',en:'Scroll'},
+
+  'about.eyebrow':{fr:'Notre mission',en:'Our Mission'},
+  'about.title':{fr:'Un partenaire stratégique pour votre financement',en:'A Strategic Partner for Your Financing'},
+  'about.p1':{fr:"YACOUT CONSULTING est un cabinet spécialisé dans l'ingénierie financière au service des entreprises, porteurs de projets et investisseurs.",en:'YACOUT CONSULTING is a firm specialized in financial engineering, serving businesses, project developers and investors.'},
+  'about.p2':{fr:"Nous accompagnons nos clients dans la structuration, l'optimisation et la sécurisation de leurs opérations de financement — avec rigueur, confidentialité et une expertise terrain reconnue.",en:'We support our clients in structuring, optimizing and securing their financing operations — with rigor, confidentiality and recognized field expertise.'},
+  'about.quote':{fr:'« Nous transformons vos ambitions en réalité financière. »',en:'"We turn your ambitions into financial reality."'},
+  'about.stat1title':{fr:'Sur mesure',en:'Tailored'},
+  'about.stat1label':{fr:'Approche personnalisée',en:'Personalized Approach'},
+  'about.stat2label':{fr:'Taux de succès',en:'Success Rate'},
+  'about.stat3label':{fr:'Dossiers traités',en:'Cases Handled'},
+  'about.stat4label':{fr:"Domaines d'expertise",en:'Areas of Expertise'},
+
+  'expertise.eyebrow':{fr:'Nos domaines',en:'Our Fields'},
+  'expertise.title':{fr:'Nos expertises',en:'Our Expertise'},
+  'expertise.sub':{fr:"Une maîtrise approfondie des mécanismes de financement pour maximiser vos chances d'aboutissement.",en:'An in-depth mastery of financing mechanisms to maximize your chances of success.'},
+  'exp1.name':{fr:'Financement Structuré (Bancaire)',en:'Structured Financing (Banking)'},
+  'exp1.desc':{fr:"Accompagnement complet dans l'accès au financement bancaire — structuration rigoureuse du dossier, réponse aux exigences des comités de crédit et sécurisation des conditions d'obtention.",en:'Comprehensive support in accessing bank financing — rigorous file structuring, meeting credit committee requirements, and securing favorable terms.'},
+  'exp2.name':{fr:'Financements Publics & Dispositifs',en:'Public Financing & Schemes'},
+  'exp2.desc':{fr:'Mobilisation des dispositifs publics pour optimiser le financement de vos projets, réduire l\'effort d\'investissement et maximiser les opportunités offertes par les programmes étatiques.',en:'Leveraging public schemes to optimize project financing, reduce investment effort, and maximize opportunities offered by government programs.'},
+  'exp3.name':{fr:'Capital & Partenariats Financiers',en:'Capital & Financial Partnerships'},
+  'exp3.desc':{fr:'Identification et structuration de financements alternatifs — capital-investissement, partenaires financiers stratégiques — pour soutenir vos projets de croissance ou de transformation.',en:'Identification and structuring of alternative financing — private equity, strategic financial partners — to support your growth or transformation projects.'},
+
+  'services.eyebrow':{fr:'Nos packs',en:'Our Packages'},
+  'services.title':{fr:'Une offre progressive, sur-mesure',en:'A Progressive, Tailored Offering'},
+  'services.sub':{fr:"Du diagnostic à l'accompagnement complet — choisissez le niveau d'intervention adapté à vos besoins.",en:'From diagnosis to full support — choose the level of intervention that fits your needs.'},
+
+  'svc1.num':{fr:'Pack 01',en:'Package 01'},
+  'svc1.badge':{fr:'Essentiel',en:'Essential'},
+  'svc1.name':{fr:'Diagnostic Stratégique',en:'Strategic Diagnosis'},
+  'svc1.desc':{fr:'Une lecture experte et rapide de votre situation financière pour identifier les meilleures voies de financement.',en:'A fast, expert reading of your financial situation to identify the best financing paths.'},
+  'svc1.li1':{fr:'Analyse du besoin et de la capacité de financement',en:'Analysis of financing needs and capacity'},
+  'svc1.li2':{fr:'Identification des leviers financiers mobilisables',en:'Identification of available financial levers'},
+  'svc1.li3':{fr:'Recommandations structurées et priorisées',en:'Structured, prioritized recommendations'},
+
+  'svc2.num':{fr:'Pack 02',en:'Package 02'},
+  'svc2.badge':{fr:'Recommandé',en:'Recommended'},
+  'svc2.name':{fr:'Structuration & Ingénierie Financière',en:'Structuring & Financial Engineering'},
+  'svc2.desc':{fr:'Un dossier solide, rigoureusement structuré pour convaincre les financeurs et maximiser vos chances d\'obtention.',en:'A solid, rigorously structured file to convince financiers and maximize your chances of approval.'},
+  'svc2.li1':{fr:'Diagnostic approfondi inclus',en:'In-depth diagnosis included'},
+  'svc2.li2':{fr:"Élaboration d'un business plan professionnel",en:'Development of a professional business plan'},
+  'svc2.li3':{fr:'Modélisation financière avancée',en:'Advanced financial modeling'},
+  'svc2.li4':{fr:'Optimisation de la structure de financement',en:'Optimization of the financing structure'},
+  'svc2.li5':{fr:'Ciblage et approche des financeurs',en:'Targeting and approaching financiers'},
+
+  'svc3.num':{fr:'Pack 03',en:'Package 03'},
+  'svc3.badge':{fr:'Complet',en:'Complete'},
+  'svc3.name':{fr:'Exécution & Accompagnement',en:'Execution & Support'},
+  'svc3.desc':{fr:"Une prise en charge intégrale, de la structuration jusqu'à l'obtention effective du financement.",en:'Full-scale support, from structuring through to the effective securing of financing.'},
+  'svc3.li1':{fr:'Packs 01 & 02 inclus',en:'Packages 01 & 02 included'},
+  'svc3.li2':{fr:'Pilotage du processus de financement',en:'Management of the financing process'},
+  'svc3.li3':{fr:'Coordination avec les partenaires financiers',en:'Coordination with financial partners'},
+  'svc3.li4':{fr:'Négociation des conditions (taux, garanties, maturité)',en:'Negotiation of terms (rate, guarantees, maturity)'},
+  'svc3.li5':{fr:'Accompagnement jusqu\'au déblocage des fonds',en:'Support through to fund disbursement'},
+
+  'svc.btn':{fr:'En savoir plus',en:'Learn more'},
+
+  'why.eyebrow':{fr:'Pourquoi nous',en:'Why Us'},
+  'why.title':{fr:"L'excellence au service de votre financement",en:'Excellence Serving Your Financing'},
+  'why.sub':{fr:'YACOUT CONSULTING allie expertise technique, réseau solide et engagement sans failles pour chaque client.',en:'YACOUT CONSULTING combines technical expertise, a strong network and unwavering commitment to every client.'},
+  'why1.title':{fr:'Conseil senior & impliqué',en:'Senior, Hands-On Advisory'},
+  'why1.desc':{fr:'Implication directe des associés à chaque étape clé — aucun dossier traité à distance ou délégué sans contrôle.',en:'Direct involvement of partners at every key stage — no file handled remotely or delegated without oversight.'},
+  'why2.title':{fr:'Approche sur mesure',en:'Tailored Approach'},
+  'why2.desc':{fr:'Chaque mission est structurée autour de votre configuration spécifique — actionnariale, sectorielle et stratégique.',en:'Every engagement is structured around your specific setup — shareholding, sector and strategy.'},
+  'why3.title':{fr:"Culture de l'exigence",en:'A Culture of Excellence'},
+  'why3.desc':{fr:'Rigueur constante sur la qualité des analyses, des livrables et des arbitrages — à chaque étape du processus.',en:'Consistent rigor in the quality of analyses, deliverables and decisions — at every stage of the process.'},
+  'why4.title':{fr:'Indépendance & confidentialité',en:'Independence & Confidentiality'},
+  'why4.desc':{fr:'Un conseil objectif, totalement aligné avec vos intérêts, avec une gestion strictement confidentielle de chaque opération.',en:'Objective advice, fully aligned with your interests, with strictly confidential handling of every transaction.'},
+
+  'secteurs.eyebrow':{fr:'Secteurs accompagnés',en:'Sectors We Support'},
+  'secteurs.title':{fr:'Une expertise multi-sectorielle',en:'Multi-Sector Expertise'},
+  'secteurs.sub':{fr:'Nous intervenons auprès d\'acteurs de secteurs variés, avec une compréhension fine des enjeux financiers propres à chaque activité.',en:'We work with players across a range of sectors, with a keen understanding of the financial issues specific to each activity.'},
+  'sec1.name':{fr:'Industrie',en:'Industry'},
+  'sec1.desc':{fr:"Financement d'unités de production, équipements industriels et projets d'expansion.",en:'Financing of production units, industrial equipment and expansion projects.'},
+  'sec2.name':{fr:'Immobilier',en:'Real Estate'},
+  'sec2.desc':{fr:'Structuration de financements pour projets résidentiels, commerciaux et de promotion.',en:'Structuring financing for residential, commercial and development projects.'},
+  'sec3.name':{fr:'Hôtellerie',en:'Hospitality'},
+  'sec3.desc':{fr:"Accompagnement des projets hôteliers, de rénovation et de développement des capacités d'accueil.",en:'Support for hotel projects, renovations and capacity development.'},
+  'sec4.name':{fr:'Tourisme',en:'Tourism'},
+  'sec4.desc':{fr:"Financement de complexes touristiques, infrastructures et projets d'écotourisme.",en:'Financing of tourist complexes, infrastructure and ecotourism projects.'},
+  'sec5.name':{fr:'Pêche & Maritime',en:'Fisheries & Maritime'},
+  'sec5.desc':{fr:'Financement de flottilles, infrastructures portuaires et unités de valorisation.',en:'Financing of fishing fleets, port infrastructure and processing units.'},
+  'sec6.name':{fr:'Agriculture',en:'Agriculture'},
+  'sec6.desc':{fr:'Accès aux financements agricoles, dispositifs publics et partenariats agro-industriels.',en:'Access to agricultural financing, public schemes and agro-industrial partnerships.'},
+  'secteurs.footer':{fr:'Et bien d\'autres secteurs sur demande — chaque projet mérite une approche dédiée.',en:'And many other sectors upon request — every project deserves a dedicated approach.'},
+
+  'contact.eyebrow':{fr:'Parlons de votre projet',en:"Let's Talk About Your Project"},
+  'contact.title':{fr:'Prenons rendez-vous',en:"Let's Schedule a Meeting"},
+  'contact.sub':{fr:'Décrivez-nous votre besoin, nous vous recontactons sous 24h.',en:"Tell us about your needs, and we'll get back to you within 24 hours."},
+  'contact.email':{fr:'Email',en:'Email'},
+  'contact.phone':{fr:'Téléphone',en:'Phone'},
+  'contact.location':{fr:'Localisation',en:'Location'},
+  'contact.locationValue':{fr:'Casablanca, Maroc',en:'Casablanca, Morocco'},
+
+  'form.name':{fr:'Nom & Prénom',en:'Full Name'},
+  'form.email':{fr:'Adresse email',en:'Email Address'},
+  'form.phone':{fr:'Téléphone',en:'Phone Number'},
+  'form.needType':{fr:'Type de besoin',en:'Type of Need'},
+  'form.opt1':{fr:'Financement Structuré (Bancaire)',en:'Structured Financing (Banking)'},
+  'form.opt2':{fr:'Financements Publics & Dispositifs',en:'Public Financing & Schemes'},
+  'form.opt3':{fr:'Capital & Partenariats Financiers',en:'Capital & Financial Partnerships'},
+  'form.opt4':{fr:'Autre',en:'Other'},
+  'form.message':{fr:'Décrivez brièvement votre projet de financement…',en:'Briefly describe your financing project…'},
+
+  'submit.default':{fr:'Envoyer ma demande →',en:'Send My Request →'},
+  'submit.sending':{fr:'Envoi en cours…',en:'Sending…'},
+  'submit.error':{fr:'Erreur — Réessayez',en:'Error — Try Again'},
+  'submit.network':{fr:'Erreur réseau — Réessayez',en:'Network Error — Try Again'},
+
+  'popup.eyebrow':{fr:'Message reçu',en:'Message Received'},
+  'popup.title':{fr:'Votre demande a bien été transmise',en:'Your Request Has Been Submitted'},
+  'popup.text':{fr:'Un consultant YACOUT prendra contact avec vous dans les meilleurs délais pour échanger sur votre projet de financement.',en:'A YACOUT consultant will contact you as soon as possible to discuss your financing project.'},
+  'popup.close':{fr:'Fermer',en:'Close'},
+
+  'foot.bottom':{fr:'© 2025 YACOUT CONSULTING — Tous droits réservés.',en:'© 2025 YACOUT CONSULTING — All rights reserved.'}
+};
+
+const translationsHTML={
+  'hero.title':{fr:'Structurer. Optimiser.<br><em>Financer.</em>',en:'Structure. Optimize.<br><em>Finance.</em>'}
+};
+
+function applyLanguage(lang,save){
+  currentLang=(lang==='en')?'en':'fr';
+  document.documentElement.setAttribute('lang',currentLang);
+
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    const t=translations[key];
+    if(t) el.textContent=t[currentLang];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-html');
+    const t=translationsHTML[key];
+    if(t) el.innerHTML=t[currentLang];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-placeholder');
+    const t=translations[key];
+    if(t) el.setAttribute('placeholder',t[currentLang]);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    const active=btn.getAttribute('data-lang')===currentLang;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-pressed',active?'true':'false');
+  });
+
+  // Keep theme-toggle aria-label in sync with the active language
+  const dark=document.body.classList.contains('theme-dark');
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn=>{
+    btn.setAttribute('aria-label', dark
+      ? (currentLang==='fr'?'Activer le mode clair':'Enable light mode')
+      : (currentLang==='fr'?'Activer le mode sombre':'Enable dark mode'));
+  });
+
+  if(save){
+    try{localStorage.setItem(langKey,currentLang)}catch{}
+  }
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>applyLanguage(btn.getAttribute('data-lang'),true));
+});
+
+// ===== Theme switcher =====
+const themeKey='yacout-theme';
+function setTheme(mode,save){
+  const dark=mode==='dark';
+  document.body.classList.toggle('theme-dark',dark);
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn=>{
+    btn.setAttribute('aria-pressed',dark?'true':'false');
+    btn.setAttribute('aria-label', dark
+      ? (currentLang==='fr'?'Activer le mode clair':'Enable light mode')
+      : (currentLang==='fr'?'Activer le mode sombre':'Enable dark mode'));
+    const label=btn.querySelector('[data-theme-label]');
+    if(label)label.textContent=dark?(btn.classList.contains('mob-theme')?'Light Mode':'Light'):(btn.classList.contains('mob-theme')?'Dark Mode':'Dark');
+  });
+  if(save){
+    try{localStorage.setItem(themeKey,dark?'dark':'light')}catch{}
+  }
+}
+try{setTheme(localStorage.getItem(themeKey)==='dark'?'dark':'light',false)}catch{setTheme('light',false)}
+
+// Apply the saved (or default) language after the theme has been initialized
+try{applyLanguage(localStorage.getItem(langKey)==='en'?'en':'fr',false)}catch{applyLanguage('fr',false)}
+
+function toggleTheme(){
+  setTheme(document.body.classList.contains('theme-dark')?'light':'dark',true);
+}
+
 // Scroll utility
 function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
 
@@ -537,7 +810,7 @@ function closeMenu(){
 document.getElementById('cForm').addEventListener('submit',async function(e){
   e.preventDefault();
   const btn=document.getElementById('submitBtn');
-  btn.textContent='Envoi en cours…';
+  btn.textContent=translations['submit.sending'][currentLang];
   btn.disabled=true;
   try{
     const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:new FormData(this)});
@@ -546,16 +819,16 @@ document.getElementById('cForm').addEventListener('submit',async function(e){
       document.getElementById('popup').classList.add('show');
     } else {
       btn.style.background='#5e2a2a';
-      btn.textContent='Erreur — Réessayez';
-      setTimeout(()=>{btn.style.background='';btn.textContent='Envoyer ma demande →';btn.disabled=false},3000);
+      btn.textContent=translations['submit.error'][currentLang];
+      setTimeout(()=>{btn.style.background='';btn.textContent=translations['submit.default'][currentLang];btn.disabled=false},3000);
       return;
     }
   }catch{
-    btn.textContent='Erreur réseau — Réessayez';
-    setTimeout(()=>{btn.textContent='Envoyer ma demande →';btn.disabled=false},3000);
+    btn.textContent=translations['submit.network'][currentLang];
+    setTimeout(()=>{btn.textContent=translations['submit.default'][currentLang];btn.disabled=false},3000);
     return;
   }
-  btn.textContent='Envoyer ma demande →';
+  btn.textContent=translations['submit.default'][currentLang];
   btn.disabled=false;
 });
 
